@@ -8,9 +8,9 @@ HTML select element
 
 ### 2. INTERFACE
 
-  - **rows** : List of elemnent to show in the drop down list (ex. [["element1"],["element2"],["element3"]])
+  - **rows** : List of elemnent to show in the drop down list (i.e. "[["element1"],["element2"],["element3"]]")
 
-  - **current** : Element shown by default once the obcject is loaded !! This will not trigger any events !!
+  - **current** : Element shown by default once the obcject is loaded (i.e. "element2") !! This will not trigger any events !!
 
   - **fontSize** : Size of the font for the element
 ### 3. EVENTS
