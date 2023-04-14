@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comi-Combobox</title>
+    <link rel="icon" href="icon.png" />
+    <script src="lib/jquery-3.6.0.js"></script>
+    <script src="webcc.min.js"></script>
+    <script src="unified.interface.js"></script>
+
+    <script>
+        var production = true;
+
+        function init(result) {
+            if (result) {
+                unifiedInterfaceInit();
+                selectInit(WebCC.Properties);
+            } else {
+                console.log('Comi-Combobox: Init without result.');
+            }
+        }
+
+        window.onload = function () {
+            ////////////////////////////////////////////////////////////////////////////////
+            // DEMO
+            if (!production) {
+                WebCC.Properties = {
+
+                    current: "",
+                    rows: [
+                        ["element1"],
+                        ["element2"],
+                        ["element3"],
+                        ["element4"]
+                    ],
+                    fontSize : 30
+                };
+                init(true);
+            }
+            ////////////////////////////////////////////////////////////////////////////////
+            // PRODUCTION
+            if (production) {
+                WebCC.start(init, UnifiedInterface.HostListener, _extensions, _timeout);
+            }
+        }
+    </script>
+    <style>
+        select {
+            height: 30px;
+            min-width: 200px;
+            width: 100%;
+            border-radius: 5px;
+            font-family: 'Montserrat';
+            font-size: 15pt;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="dave-select" onchange="selectOption()">
+
+    </select>
+
+
+    <script>
+        var $sel = $('#dave-select');
+
+        var selectInit = function (props) {
+
+            // load and parse rows
+            if (props.hasOwnProperty('rows') && props.rows != null) {
+                if (typeof props.rows === 'string') {
+                    propsRows = JSON.parse(props.rows);
+                } else if (Array.isArray(props.rows)) {
+                    propsRows = props.rows;
+                } else {
+                    console.log('Comi-Select: WRONG FORMAT: rows');
+                }
+            } else {
+                return;
+            }
+
+            // clear select
+            $sel.empty();
+
+            // populate rows
+            if (propsRows.length > 0) {
+                let $optionEmpty = $('<option>');
+
+                $optionEmpty.val('');
+                $optionEmpty.text('');
+                $sel.append($optionEmpty);
+
+                for (let i = 0; i < propsRows.length; i++) {
+                    let $option = $('<option>');
+
+                    $option.val(propsRows[i]);
+                    $option.text(propsRows[i]);
+
+
+                    if (props.current == propsRows[i]) {
+                        $option.prop("selected", true)
+                    }
+                    $sel.append($option);
+                }
+            }
+
+
+        }
+        function selectOption() {
+            var $sel = $('#dave-select');
+            var value = $sel.val();
+            fireEvent("ev_selectElement", $sel.val())
+        }
+
+        // fire event to winCC
+        function fireEvent(ev, args) {
+            if (WebCC && WebCC.Events) {
+                WebCC.Events.fire(ev, JSON.stringify(args));
+            }
+        }
+    </script>
+
+</body>
+
+</html>
