@@ -67,7 +67,7 @@ HTML sleect element
     - {1B4B9F13-ADBF-49FD-B759-F04DF3647C93}.zip
     - If you want this custom web control available for all your project, copy this file in the folder : 
       - C:\Program Files\Siemens\Automation\Portal V17\Data\Hmi\CustomControls
-      - replace "Porla V17" with your Tia version.
+      - replace "Portal V17" with your Tia version.
     - If you want to use this custom web control only in one project copy this file in the folder :
 
       - \path_to_tia_project\UserFiles
